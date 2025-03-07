@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calculadora Penal GTA RP</title>
+  <style>
+    /* Estilos básicos para layout */
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f4f4;
+      margin: 0;
+      padding: 20px;
+    }
+    main {
+      max-width: 800px;
+      margin: 0 auto;
+      background: #fff;
+      padding: 20px;
+      border-radius: 4px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    h1, h2, h3 {
+      text-align: center;
+    }
+    .form-group {
+      margin-bottom: 15px;
+    }
+    label {
+      display: block;
+      margin-bottom: 5px;
+    }
+    input[type="text"] {
+      width: 100%;
+      padding: 8px;
+      box-sizing: border-box;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+    button {
+      padding: 10px 15px;
+      margin: 5px;
+      border: none;
+      border-radius: 4px;
+      background: #007BFF;
+      color: #fff;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #0056b3;
+    }
+    #resultados {
+      margin-top: 20px;
+    }
+    .resultado {
+      background: #e9ecef;
+      padding: 10px;
+      border-radius: 4px;
+      margin-bottom: 10px;
+    }
+  </style>
+</head>
+<body>
+  <!-- Sem menu de navegação -->
+  <main>
+    <h1>Calculadora Penal GTA RP</h1>
+    <form id="penalForm">
+      <div class="form-group">
+        <label for="nomeAcusado">Nome do Acusado</label>
+        <input type="text" id="nomeAcusado" name="nomeAcusado" placeholder="Digite o nome do acusado" required>
+      </div>
+      <div class="form-group">
+        <label for="idAcusado">ID do Acusado</label>
+        <input type="text" id="idAcusado" name="idAcusado" placeholder="Digite o ID do acusado" required>
+      </div>
+      <div class="form-group" style="text-align: center;">
+        <button type="submit">Calcular Pena</button>
+        <button type="button" id="copyDiscord">Copiar Para Discord</button>
+      </div>
+    </form>
+
+    <!-- Ficha Criminal com os dados essenciais -->
+    <section id="fichaCriminal">
+      <h2>Ficha Criminal</h2>
+      <p><strong>Nome do Acusado:</strong> <span id="displayNome"></span></p>
+      <p><strong>Passaporte do Acusado:</strong> <span id="displayPassaporte"></span></p>
+      <p><strong>Total da Pena:</strong> <span id="displayTotalPena"></span></p>
+      <p><strong>Total de Multa:</strong> <span id="displayMulta"></span></p>
+      <p><strong>Crimes Cometidos:</strong> <span id="displayCrimes"></span></p>
+      <p><strong>Prisão feita por:</strong> <span id="displayPrisao"></span></p>
+      <p><strong>Polícias Envolvidos:</strong> <span id="displayPolicias"></span></p>
+      <p><strong>Advogado Envolvido:</strong> <span id="displayAdvogado"></span></p>
+    </section>
+
+    <!-- Resultados básicos -->
+    <section id="resultados">
+      <div class="resultado">
+        <h3>Valor da Multa</h3>
+        <p id="resultadoMulta">R$ 0,00</p>
+      </div>
+      <div class="resultado">
+        <h3>Sentença Final (Meses)</h3>
+        <p id="resultadoSentenca">0</p>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    // Simulação de cálculo e preenchimento dos dados fictícios
+    document.getElementById('penalForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      // Preenche a ficha criminal com dados simulados ou calculados
+      document.getElementById('displayNome').textContent = document.getElementById('nomeAcusado').value;
+      document.getElementById('displayPassaporte').textContent = "N/A"; // Implementar lógica se necessário
+      document.getElementById('displayTotalPena').textContent = "12 meses";
+      document.getElementById('displayMulta').textContent = "R$ 100,00";
+      document.getElementById('displayCrimes').textContent = "Exemplo de crime";
+      document.getElementById('displayPrisao').textContent = "Polícia Estadual";
+      document.getElementById('displayPolicias').textContent = "Exemplo de policiais";
+      document.getElementById('displayAdvogado').textContent = "Não";
+      
+      // Atualiza os resultados
+      document.getElementById('resultadoMulta').textContent = "R$ 100,00";
+      document.getElementById('resultadoSentenca').textContent = "12";
+    });
+
+    // Função para copiar os dados formatados para a área de transferência (para o Discord)
+    document.getElementById('copyDiscord').addEventListener('click', function() {
+      let ficha = 
+`Ficha Criminal:
+Nome do Acusado: ${document.getElementById('displayNome').textContent}
+Passaporte: ${document.getElementById('displayPassaporte').textContent}
+Total da Pena: ${document.getElementById('displayTotalPena').textContent}
+Multa: ${document.getElementById('displayMulta').textContent}
+Crimes: ${document.getElementById('displayCrimes').textContent}`;
+      
+      navigator.clipboard.writeText(ficha).then(() => {
+        alert("Ficha copiada para o Discord!");
+      });
+    });
+  </script>
+</body>
+</html>
