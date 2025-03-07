@@ -2,10 +2,10 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
-  <title>Calculadora de Pena - Código Penal</title>
+  <title>Calculadora de Pena - Código Penal (Meses)</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
-    /* Estilos para manter a aparência similar à original */
+    /* Estilos básicos para manter a aparência */
     body {
       font-family: Arial, sans-serif;
       background: #f4f4f4;
@@ -26,14 +26,10 @@
       border-radius: 4px;
       box-shadow: 0 0 10px rgba(0,0,0,0.1);
     }
-    h1, h2, h3 {
-      text-align: center;
-      margin-bottom: 10px;
-    }
     fieldset {
       border: 1px solid #ccc;
-      margin-bottom: 20px;
       padding: 15px;
+      margin-bottom: 20px;
       border-radius: 4px;
     }
     legend {
@@ -60,9 +56,6 @@
     .checkbox-group input {
       margin-right: 5px;
     }
-    hr {
-      margin: 20px 0;
-    }
     button {
       padding: 10px 20px;
       border: none;
@@ -88,9 +81,9 @@
   </style>
 </head>
 <body>
-  <!-- Cabeçalho com título (menu superior removido) -->
+  <!-- Cabeçalho -->
   <header>
-    <h1>Calculadora de Pena - Código Penal</h1>
+    <h1>Calculadora de Pena - Código Penal (Meses)</h1>
   </header>
   
   <main>
@@ -108,106 +101,143 @@
         </div>
       </fieldset>
       
-      <hr>
-      <h2>Selecione os Crimes Cometidos</h2>
-      <!-- Cada crime possui um valor (em anos) -->
-      <div class="checkbox-group">
-        <input type="checkbox" id="crime1" name="crimes" value="2">
-        <label for="crime1">Furto Simples (Art. 155) - 2 meses</label>
-      </div>
-      <div class="checkbox-group">
-        <input type="checkbox" id="crime2" name="crimes" value="12">
-        <label for="crime2">Homicídio (Art. 121) - 12 meses</label>
-      </div>
-      <div class="checkbox-group">
-        <input type="checkbox" id="crime3" name="crimes" value="8">
-        <label for="crime3">Estupro (Art. 213) - 8 meses</label>
-      </div>
-      <div class="checkbox-group">
-        <input type="checkbox" id="crime4" name="crimes" value="5">
-        <label for="crime4">Tráfico de Drogas (Art. 33 da Lei de Drogas) - 5 meses</label>
-      </div>
-      <div class="checkbox-group">
-        <input type="checkbox" id="crime5" name="crimes" value="4">
-        <label for="crime5">Roubo (Art. 157) - 4 meses</label>
-      </div>
+      <!-- Crimes -->
+      <fieldset>
+        <legend>Crimes Cometidos</legend>
+        <!-- Barra de pesquisa para os crimes -->
+        <div class="form-group">
+          <label for="crimeSearch">Pesquisar Crimes</label>
+          <input type="text" id="crimeSearch" placeholder="Digite para pesquisar crimes...">
+        </div>
+        <!-- Container para os crimes -->
+        <div id="crimesContainer">
+          <!-- Checkboxes serão gerados dinamicamente -->
+        </div>
+      </fieldset>
       
-      <hr>
-      <h2>Selecione os Atenuantes</h2>
-      <!-- Cada atenuante reduz a pena em anos -->
-      <div class="checkbox-group">
-        <input type="checkbox" id="atenuante1" name="atenuantes" value="1">
-        <label for="atenuante1">Confissão Espontânea - Reduz 1 mes</label>
-      </div>
-      <div class="checkbox-group">
-        <input type="checkbox" id="atenuante2" name="atenuantes" value="2">
-        <label for="atenuante2">Colaboração com a Justiça - Reduz 2 meses</label>
-      </div>
-      <div class="checkbox-group">
-        <input type="checkbox" id="atenuante3" name="atenuantes" value="1">
-        <label for="atenuante3">Reparação do Dano - Reduz 1 mes</label>
-      </div>
-      <div class="checkbox-group">
-        <input type="checkbox" id="atenuante4" name="atenuantes" value="1">
-        <label for="atenuante4">Arrependimento Posterior - Reduz 1 mes</label>
-      </div>
+      <!-- Atenuantes -->
+      <fieldset>
+        <legend>Atenuantes</legend>
+        <div class="checkbox-group">
+          <input type="checkbox" id="atenuante1" name="atenuantes" value="12">
+          <label for="atenuante1">Confissão Espontânea - Reduz 12 meses</label>
+        </div>
+        <div class="checkbox-group">
+          <input type="checkbox" id="atenuante2" name="atenuantes" value="24">
+          <label for="atenuante2">Colaboração com a Justiça - Reduz 24 meses</label>
+        </div>
+        <div class="checkbox-group">
+          <input type="checkbox" id="atenuante3" name="atenuantes" value="12">
+          <label for="atenuante3">Reparação do Dano - Reduz 12 meses</label>
+        </div>
+        <div class="checkbox-group">
+          <input type="checkbox" id="atenuante4" name="atenuantes" value="12">
+          <label for="atenuante4">Arrependimento Posterior - Reduz 12 meses</label>
+        </div>
+      </fieldset>
       
-      <hr>
       <button type="submit">Calcular Pena</button>
     </form>
     
+    <!-- Resultado -->
     <div class="resultado" id="resultado">
       <h2>Ficha Criminal</h2>
       <p><strong>Nome do Acusado:</strong> <span id="displayNome"></span></p>
       <p><strong>ID do Acusado:</strong> <span id="displayId"></span></p>
-      <p><strong>Total da Pena (anos):</strong> <span id="totalAnos"></span> anos</p>
-      <p><strong>Total da Pena (meses):</strong> <span id="totalMeses"></span> meses</p>
-      <p><strong>Atenuação Total:</strong> <span id="totalAtenuantes"></span> anos</p>
-      <p><strong>Pena Final (anos):</strong> <span id="penaFinalAnos"></span> anos</p>
+      <p><strong>Total da Pena (meses):</strong> <span id="totalPenaMeses"></span> meses</p>
+      <p><strong>Atenuação Total (meses):</strong> <span id="totalAtenuantes"></span> meses</p>
       <p><strong>Pena Final (meses):</strong> <span id="penaFinalMeses"></span> meses</p>
     </div>
   </main>
   
   <script>
-    document.getElementById('penaForm').addEventListener('submit', function(e) {
+    // Array de crimes com valores em meses
+    const crimes = [
+      { id: "crime1", label: "Furto Simples (Art. 155)", penalty: 24 },
+      { id: "crime2", label: "Homicídio (Art. 121)", penalty: 144 },
+      { id: "crime3", label: "Estupro (Art. 213)", penalty: 96 },
+      { id: "crime4", label: "Tráfico de Drogas (Art. 33 da Lei de Drogas)", penalty: 60 },
+      { id: "crime5", label: "Roubo (Art. 157)", penalty: 48 },
+      { id: "crime6", label: "Lesão Corporal (Art. 129)", penalty: 36 },
+      { id: "crime7", label: "Injúria (Art. 140)", penalty: 12 },
+      { id: "crime8", label: "Calúnia (Art. 138)", penalty: 24 },
+      { id: "crime9", label: "Difamação (Art. 139)", penalty: 24 },
+      { id: "crime10", label: "Estelionato (Art. 171)", penalty: 60 }
+    ];
+    
+    // Função para renderizar os crimes de acordo com o filtro da barra de pesquisa
+    function renderCrimes(filterText = "") {
+      const container = document.getElementById("crimesContainer");
+      container.innerHTML = "";
+      const filteredCrimes = crimes.filter(crime =>
+        crime.label.toLowerCase().includes(filterText.toLowerCase())
+      );
+      if (filteredCrimes.length === 0) {
+        container.innerHTML = "<p>Nenhum crime encontrado.</p>";
+        return;
+      }
+      filteredCrimes.forEach(crime => {
+        const div = document.createElement("div");
+        div.className = "checkbox-group";
+        
+        const checkbox = document.createElement("input");
+        checkbox.type = "checkbox";
+        checkbox.id = crime.id;
+        checkbox.name = "crimes";
+        checkbox.value = crime.penalty;
+        
+        const label = document.createElement("label");
+        label.htmlFor = crime.id;
+        label.textContent = `${crime.label} - ${crime.penalty} meses`;
+        
+        div.appendChild(checkbox);
+        div.appendChild(label);
+        container.appendChild(div);
+      });
+    }
+    
+    // Renderiza os crimes ao carregar a página
+    renderCrimes();
+    
+    // Atualiza a lista de crimes conforme a pesquisa
+    document.getElementById("crimeSearch").addEventListener("input", function() {
+      renderCrimes(this.value);
+    });
+    
+    // Evento de submissão do formulário
+    document.getElementById("penaForm").addEventListener("submit", function(e) {
       e.preventDefault();
       
       // Dados do acusado
-      const nome = document.getElementById('nomeAcusado').value;
-      const id = document.getElementById('idAcusado').value;
+      const nome = document.getElementById("nomeAcusado").value;
+      const id = document.getElementById("idAcusado").value;
       
-      // Soma os valores (em anos) dos crimes selecionados
+      // Soma dos valores dos crimes selecionados (em meses)
       const crimeCheckboxes = document.querySelectorAll('input[name="crimes"]:checked');
-      let totalCrimeAnos = 0;
+      let totalCrimeMeses = 0;
       crimeCheckboxes.forEach(function(checkbox) {
-        totalCrimeAnos += parseFloat(checkbox.value);
+        totalCrimeMeses += parseFloat(checkbox.value);
       });
       
-      // Soma os valores dos atenuantes selecionados
+      // Soma dos valores dos atenuantes selecionados (em meses)
       const atenuanteCheckboxes = document.querySelectorAll('input[name="atenuantes"]:checked');
       let totalAtenuantes = 0;
       atenuanteCheckboxes.forEach(function(checkbox) {
         totalAtenuantes += parseFloat(checkbox.value);
       });
       
-      // Calcular a pena final (anos) considerando a atenuação, com valor mínimo zero
-      let penaFinalAnos = totalCrimeAnos - totalAtenuantes;
-      if (penaFinalAnos < 0) {
-        penaFinalAnos = 0;
+      // Calcula a pena final (em meses), garantindo que não seja negativa
+      let penaFinalMeses = totalCrimeMeses - totalAtenuantes;
+      if (penaFinalMeses < 0) {
+        penaFinalMeses = 0;
       }
       
-      // Converter anos para meses
-      const totalCrimeMeses = totalCrimeAnos * 12;
-      const penaFinalMeses = penaFinalAnos * 12;
-      
-      // Preencher a Ficha Criminal com os dados e resultados
-      document.getElementById('displayNome').textContent = nome;
-      document.getElementById('displayId').textContent = id;
-      document.getElementById('totalAnos').textContent = totalCrimeAnos;
-      document.getElementById('totalMeses').textContent = totalCrimeMeses;
-      document.getElementById('totalAtenuantes').textContent = totalAtenuantes;
-      document.getElementById('penaFinalAnos').textContent = penaFinalAnos;
-      document.getElementById('penaFinalMeses').textContent = penaFinalMeses;
+      // Preenche a ficha criminal com os dados e resultados
+      document.getElementById("displayNome").textContent = nome;
+      document.getElementById("displayId").textContent = id;
+      document.getElementById("totalPenaMeses").textContent = totalCrimeMeses;
+      document.getElementById("totalAtenuantes").textContent = totalAtenuantes;
+      document.getElementById("penaFinalMeses").textContent = penaFinalMeses;
     });
   </script>
 </body>
